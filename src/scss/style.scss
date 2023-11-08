@@ -1,0 +1,621 @@
+@use "sass:math";
+
+
+// Подключение миксинов ===========================================================================================================================================================================================================================================================================
+@import "base/mixins";
+
+@mixin flexboxinline(){display: -webkit-box; display: -moz-box; display:-ms-flexbox; display: -webkit-flex; display: inline-flex; font-size: 0; }
+@mixin anim ($time,$delay){-webkit-transition:all $time ease $delay; -moz-transition:all $time ease $delay; -ms-transition:all $time ease $delay; -o-transition:all $time ease $delay;}
+@mixin flexorder($val){-webkit-box-ordinal-group: $val; -moz-box-ordinal-group: $val; -ms-flex-order:$val; -webkit-order:$val; order:$val;}
+@mixin flexbox(){display: -webkit-box; display: -moz-box; display:-ms-flexbox; display: -webkit-flex; display: flex; font-size: 0; }
+// Подключение миксинов ===========================================================================================================================================================================================================================================================================
+
+
+
+
+// Подключение шрифтов ===========================================================================================================================================================================================================================================================================
+//&display=swap - добавить при подключении через плагин
+// &subset=cyrillic -exit - добавление кириллицы
+@import "fonts";
+@import url('https://fonts.googleapis.com/css?family=Raleway:regular,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300&display=swap');
+// Подключение шрифтов ===========================================================================================================================================================================================================================================================================
+
+
+// Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
+$fontFamily: "Raleway";
+$fontSize: rem(16); // где 14(px) - размер шрифта по умолчанию из макета
+// Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
+
+
+
+
+
+// Переменные ===============================================================================================================================================================================================================================================================================================
+// Минимальная ширина страницы
+$minWidth: 320;// Минимальная ширина страницы
+
+
+
+
+
+// Ширина полотна (макета)
+$maxWidth: 1920;
+// Ширина ограничивающего контейнера (0 = нет ограничения)
+$maxWidthContainer: 1140;
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 30;
+
+// Ширина срабатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Основные цвета
+$mainColor: #fff; // Цвет шрифта по умолчанию
+
+// Брейк-поинты
+$pc: em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: em(767.98); // Телефоны L
+$mobileSmall: em(479.98); // Телефоны S
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 1;
+
+
+// Обнуление и общие параметры ============================================================================================================================================================================================== =============================================================================================== ===============================================================================================
+@import "base/null";
+// Обнуление и общие параметры ============================================================================================================================================================================================== =============================================================================================== ===============================================================================================
+//COLORS
+$dark:#242B33;
+$accent:rgba(212, 193, 127, 1);
+$white:#fff;
+$footer-bg:#2D343C;
+
+body {
+    color: #fff;
+    background-color: $dark;
+
+	// Скролл заблокирован
+	&._lock{
+		overflow: hidden;
+		touch-action: none;
+	}	// Сайт загружен
+	.loaded & {
+	}
+}
+a{
+    color: #fff;
+    transition: all 0.3s ease 0s;
+    @media (any-hover: hover){
+        &:hover{
+            color: $accent;
+        }
+    }
+}
+// Оболочка ============================================================================================================================================================================================================================================================================================================================================================================================================================================
+.wrapper {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	// Прижимаем footer
+	> main {
+		flex: 1 1 auto;
+	}
+	// Фикс для слайдеров
+	> * {
+		min-width: 0;
+	}
+}
+
+//ОСНОВНАЯ ЧАСТЬ==================================================================================================================================================================================================================
+.benefits {
+    padding: 120px 0;
+   @media (max-width:$tablet){
+    padding: 80px 0;
+   }
+   @media (max-width:$mobile){
+     padding: 40px 0; 
+   }
+    overflow: hidden;
+    position: relative;
+    &::after{
+        content:'II';
+        opacity: 0.02;
+        font-size: 400px;
+        position: absolute;
+        transform: translate(-50%,0px);
+        line-height: 1.15;  
+        top: 0;
+        left: calc(50% + 555px);
+        color: #FFF;
+        font-family: Playfair Display;
+        font-size: 400px;
+        font-weight: 700;
+    }
+    &__container {
+    }
+
+    &__row {
+        display: flex;
+        column-gap: 70px;
+        @media (max-width:$tablet){
+            display: grid;
+            gap: 40px 30px;
+            grid-template-columns: repeat(auto-fit,minmax(290px,1fr));
+        }
+    }
+
+    &__item {
+        text-align: center;
+    }
+
+    &__item-img {
+        margin-bottom: rem(53);
+        @media (max-width:$tablet){
+            width: 60px;
+            height: 60px;
+            margin-bottom: 20px;
+        }
+    }
+
+    &__item-text {
+        text-align: center;
+        font-family: Roboto;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: math.div(27 ,20 );
+        @media (max-width:$tablet){
+            font-size: 16px;
+        }
+        @media (max-width:$mobileSmall){
+             max-width: 193px; 
+             text-align: center;
+             margin: 0 auto;
+        }
+    }
+}
+//========================================================================================================================================================
+.departments {
+    position: relative;
+    &::before{
+        content:'III';
+        opacity: 0.02;
+        font-size: 400px;
+        position: absolute;
+        transform: translate(50%,0px);
+        line-height: 1.15;  
+        top: 0;
+        right: calc(50% + 555px);
+        color: #FFF;
+        font-family: Playfair Display;
+        font-size: 400px;
+        font-weight: 700;
+        
+    }
+
+    &__container {
+    }
+
+    &__title {
+        @include adaptiveValue("margin-bottom",88 ,40 );
+    }
+
+    &__cards {
+        display: grid;
+        gap:30px;
+        // justify-content: center;
+        // align-items: center;
+        
+        grid-template-columns:repeat(2, 1fr);
+        @media (max-width: em(959)){
+            grid-template-columns:repeat(auto-fit, minmax(290px,1fr));
+        }
+
+       
+    }
+}
+
+.card {
+   text-align: center;
+    overflow: hidden;
+    position: relative;
+   display: inline-block;
+   color: #fff;
+   @media (any-hover: hover){
+    &:hover{
+        color: #fff;
+        
+    }
+}
+    &::before{
+        content:'';
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 6;
+        width: 100%;
+        height: 100%;
+        
+
+        background: linear-gradient(180deg, rgba(36, 43, 51, 0.00) 0%,
+         $dark 100%)
+    }
+    &::after{
+        opacity: 0;
+        content:'';
+        position: absolute;
+        left: 15px;
+        top: 15px;
+         right: 15px;
+        bottom: 15px;
+        z-index: 7;
+        transition: opacity 0.3s ease-in 0s;
+        border: 3px double rgba(255,255,255,0.4);
+    }
+    @media (any-hover: hover){
+        &:hover{
+            &::after{
+               
+                opacity: 1;
+            }
+        }
+    }
+
+    &__image {
+        object-fit: contain;
+        position: relative;
+        z-index: 5;
+        // max-width: 100%;
+        height: 100%;
+        transition: all 0.5s ease 0s;
+    }
+
+    &__title {
+        position: absolute;
+        left: 50px;
+        text-align: left;
+        right: 20px;
+        bottom: 44px;
+        z-index: 9;
+        font-size: 24px;
+        font-weight: 400;
+        @media (max-width:$tablet){
+            font-size: 20px;
+            
+            bottom: 30px;
+        }
+      
+    }
+}
+
+.card:hover .card__image{
+    transform: scale(1.1);
+    filter: contrast(110%) brightness(1.2) saturate(1.2)
+}
+//========================================================================================================================================================
+.cta {
+    @media (max-width:$pc){
+         padding: 60px 0; 
+    }
+    padding: 180px 0;
+    background: linear-gradient(180deg, #242B33 10.42%, rgba(36, 43, 51, 0.00) 50.52%, #242B33 90.1%),
+     linear-gradient(0deg, rgba(36, 43, 51, 0.90) 0%, rgba(36, 43, 51, 0.90) 100%),
+      url('../img/form-main.jpg'), #C4C4C4;
+
+    &__container {
+    }
+
+    &__title {
+        margin-bottom: 17px;
+    }
+
+    &__wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        @media (max-width:$pc){
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__text {
+        font-family: Raleway;
+        font-size: 16px;
+        line-height: math.div(24 ,16 );
+        font-weight: 400;
+        @media (max-width:$tablet){
+            font-size: 14px;
+        }
+        p + p{
+            margin-top: 1em;
+        }
+    }
+
+
+    &__form {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 35px 30px;
+        @media (max-width: em(500)){
+            grid-template-columns: 1fr;
+        }
+
+    }
+}
+.title-2 {
+}
+.form {
+
+
+    &__input {
+        height: 50px;
+        padding: 12px;
+        text-align: center;
+        background-color: rgb(255, 255, 255,0.2);
+        color: #fff;
+        font-size: 14px;
+        outline: 0;
+        transition: background-color 0.3s ease 0s;
+        &:focus{
+            background-color: rgb(255, 255, 255,0.35);
+        }
+       
+        &::placeholder{
+            color: #BEBEBE;
+        }
+    }
+
+    &__privacy {
+        color: #E7E7E7;
+        font-family: Raleway;
+        font-size: 13px;
+        font-weight: 400;
+        text-align: center;
+        line-height: math.div(16 ,13 );
+        &_bottom{
+            @media (max-width:em(500)){
+                 grid-row: 4/5; 
+            }
+        }
+    }
+
+    &__button {
+        height: 50px;
+        font-size: 16px;
+        color: #fff;
+        font-weight: 700;
+        text-align: center;
+        padding: 12px;
+        background: $accent;
+        transition: background-color 0.3s ease 0s;
+        @media (any-hover: hover){
+            &:hover{
+                background: saturate($accent,10%);
+            }
+        }
+    }
+}
+//========================================================================================================================================================
+.video {
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+    &::after{
+        content:'IV';
+        opacity: 0.02;
+        font-size: 400px;
+        position: absolute;
+        transform: translate(-50%,0px);
+        line-height: 1.15;  
+        top: 0;
+        left: calc(50% + 555px);
+        color: #FFF;
+        font-family: Playfair Display;
+        font-size: 400px;
+        font-weight: 700;
+    }
+    &__container {
+    }
+
+    &__link {
+        position: relative;
+        text-align: center;
+        display: inline-block;
+        &::before{
+            content:'';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+           transition: background-color 0.3s ease 0s;
+            background-color:rgba(36, 43, 51, 0.80);
+        }
+        @media (any-hover: hover){
+            &:hover::before{
+                
+                background-color:rgba(36, 43, 51, 0.65);
+
+            }
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 9;
+        transform: translate(-50%,-50%);
+        transition: transform 0.3s ease 0s;
+        @media (max-width:$tablet){
+            width: 80px;
+            height: 80px;
+        }
+    }
+
+    &__img {
+    }
+}
+
+
+.video__link:hover .video__icon{
+    transform: translate(-50%,-50%) scale(1.2);
+    filter: saturate(1.5);
+}
+//========================================================================================================================================================
+.section-map {
+    padding: 180px 0;
+    @media (max-width:$tablet){
+        padding: 90px 0;
+    }
+    @media (max-width:$mobile){
+         padding: 60px 0; 
+    }
+    position: relative;
+    &::after{
+        content:'V';
+        opacity: 0.02;
+        font-size: 400px;
+        z-index: -1;
+        position: absolute;
+        transform: translate(50%,0px);
+        line-height: 1.15;  
+        top: 180px;
+        line-height: 1;
+        right: calc(50% + 555px);
+        color: #FFF;
+        font-family: Playfair Display;
+        font-size: 400px;
+        font-weight: 700;
+    }
+    &__container {
+    }
+
+    &__title {
+        margin-bottom: rem(88);
+        @media (max-width:$tablet){
+            margin-bottom: 44px;
+        }
+    }
+
+    &__map {
+        
+    }
+}
+
+.map {
+    height: 358px;
+    background-color: #626262;
+    
+}
+//========================================================================================================================================================
+.feedback {
+    padding-bottom: 180px;
+    @media (max-width:$tablet){
+        padding-bottom: 90px;
+    }
+    @media (max-width:$mobile){
+         padding-bottom: 60px; 
+    }
+
+    &__container {
+    }
+
+    &__title {
+        margin-bottom: 38px;
+        @media (max-width:$tablet){
+            margin-bottom: 28px;
+        }
+    }
+
+    &__form {
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        gap: 30px;
+        align-items: center;
+        @media (max-width:$tablet){
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+//========================================================================================================================================================
+
+
+// Ограничивающий контейнер ======================================================================================================================================================================================================================
+
+/*
+(i) Стили будут применяться ко 
+всем классам содержащим *__container
+Например header__container, main__container и т.д.
+Снипет (HTML): cnt
+*/
+
+
+@if ($responsiveType==1) {
+	// Отзывчивая
+	[class*="__container"] {
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+			margin: 0 auto;
+		}
+		@if ($containerPadding>0) {
+			padding: 0 rem(math.div($containerPadding, 2));
+		}
+	}
+} @else {
+	// По брейк-поинтам
+	[class*="__container"] {
+		margin: 0 auto;
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+		} @else {
+			@if ($containerPadding>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+		@media (max-width: $pc) {
+			max-width: rem(970);
+		}
+		@media (max-width: $tablet) {
+			max-width: rem(750);
+		}
+		@media (max-width: $mobile) {
+			max-width: none;
+			@if ($containerPadding>0 and $maxWidthContainer>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+	}
+}
+
+
+
+
+@import "base";
+@import "libs/youtubeLightbox.scss";
+
+
+@import "common";
+
+@import "header";
+@import "footer";
+
+/*
+
+// Подключение базовых стилей, шаблонов (заготовок) и вспомогательных  классов
+// Для подключения/отключения конкретных стилей смотри base.scss
+
+
+// Подключение стилей отдельных страниц
+@import "home";
+
+
+*/

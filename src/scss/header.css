@@ -1,0 +1,118 @@
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background: linear-gradient(190deg, rgba(0, 0, 0, 0.6) 10%, rgba(0, 0, 0, 0) 99.65%);
+  padding: 30px 0;
+}
+.header__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header__logo {
+  position: relative;
+  z-index: 52;
+}
+.header__logo img {
+  max-width: 70%;
+}
+.menu__list {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+@media (max-width: em(800)) {
+  .menu__list {
+    flex-direction: column;
+  }
+}
+.menu__link {
+  color: #FFF;
+  text-align: center;
+  text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+  line-height: 180%; /* 43.2px */
+  transition: color 0.3s ease 0s;
+}
+@media (any-hover: hover) {
+  .menu__link:hover {
+    color: #7DA85D;
+  }
+}
+
+.icon-menu {
+  transition: all 0.3s ease 0s;
+}
+@media (max-width: em(800)) {
+  .icon-menu {
+    display: flex;
+    width: 30px;
+    position: relative;
+    flex: 0 0 30px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 40;
+  }
+  .icon-menu span { /**/
+    transition: all 0.4s ease 0s;
+    top: 8px;
+    right: 0;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+  }
+  .icon-menu span:first-child {
+    top: 0px;
+  }
+  .icon-menu span:last-child {
+    top: auto;
+    bottom: 0px;
+  }
+  .icon-menu._active span {
+    transform: scale(0); /**/
+    transition: all 0.4s ease 0s;
+  }
+  .icon-menu._active span:first-child {
+    transform: rotate(-45deg);
+    top: 8px;
+  }
+  .icon-menu._active span:last-child {
+    transform: rotate(45deg);
+    bottom: 8px;
+  }
+}
+
+@media (max-width: em(800)) {
+  .menu__body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    overflow: auto;
+    background-color: rgb(164, 164, 164);
+    z-index: 4;
+    padding: rem(150) rem(30) rem(80) rem(30);
+  }
+  .menu__body::before {
+    content: "";
+    min-height: rem(110);
+    position: fixed;
+    width: 100%;
+    z-index: 8;
+    top: 0;
+    left: 0;
+    background-color: rgb(164, 164, 164);
+    transform: translate(0px, -100%);
+  }
+  .menu__body._active {
+    left: 0;
+  }
+  .menu__body._active::before {
+    transform: translate(0px, 0px);
+  }
+}/*# sourceMappingURL=header.css.map */
